@@ -357,7 +357,7 @@ export default function HomePage() {
             <span>Only publicly available data</span>
           </div>
           <div className="text-xs text-[rgba(200,210,255,0.15)]">
-            © 2026 DATAWAVE · Global Data Intelligence
+            © 2026 DATATO · Global Data Intelligence
           </div>
         </div>
       </footer>

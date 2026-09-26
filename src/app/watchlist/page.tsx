@@ -15,7 +15,7 @@ export default function WatchlistPage() {
   // Load from localStorage
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('datawave-watchlist');
+      const saved = localStorage.getItem('datato-watchlist');
       if (saved) {
         setWatchlist(JSON.parse(saved));
       }
@@ -26,7 +26,7 @@ export default function WatchlistPage() {
   // Save to localStorage
   useEffect(() => {
     if (loaded) {
-      localStorage.setItem('datawave-watchlist', JSON.stringify(watchlist));
+      localStorage.setItem('datato-watchlist', JSON.stringify(watchlist));
     }
   }, [watchlist, loaded]);
 

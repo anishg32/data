@@ -1,4 +1,4 @@
-// Utility functions for DATAWAVE
+// Utility functions for DATATO
 
 export function formatNumber(value: number): string {
   if (value >= 1e12) return `${(value / 1e12).toFixed(1)}T`;

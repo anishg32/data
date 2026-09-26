@@ -24,6 +24,7 @@ import {
   Share2,
   ExternalLink,
   ChevronRight,
+  Download,
 } from 'lucide-react';
 
 export default function EntityPage({ params }: { params: Promise<{ id: string }> }) {
@@ -90,12 +91,20 @@ export default function EntityPage({ params }: { params: Promise<{ id: string }>
   }, [entity]);
 
   // Determine primary metric key for map
-  const primaryMetricKey = useMemo(() => {
+  const defaultMetricKey = useMemo(() => {
     if (!primaryMetric?.countryValues.length) return undefined;
     const firstCountry = primaryMetric.countryValues[0];
     const keys = Object.keys(firstCountry.metrics);
     // Find the non-growth key
     return keys.find((k) => k !== 'growth') || keys[0];
+  }, [primaryMetric]);
+
+  const [selectedMapMetric, setSelectedMapMetric] = useState<string | undefined>(undefined);
+  const activeMapMetric = selectedMapMetric || defaultMetricKey;
+
+  const mapMetricOptions = useMemo(() => {
+    if (!primaryMetric?.countryValues.length) return [];
+    return Object.keys(primaryMetric.countryValues[0].metrics);
   }, [primaryMetric]);
 
   return (
@@ -169,19 +178,25 @@ export default function EntityPage({ params }: { params: Promise<{ id: string }>
                   <Share2 size={14} />
                   Share
                 </button>
+                <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-all">
+                  <Download size={14} />
+                  Export
+                </button>
               </div>
             </div>
 
-            {/* Global headline */}
-            <div className="mt-6 pt-6 border-t border-[rgba(100,120,255,0.08)]">
-              <div className="text-[10px] uppercase tracking-widest text-[rgba(200,210,255,0.25)] mb-2">
-                GLOBAL INTELLIGENCE
-              </div>
+            {/* In-page Navigation Tabs */}
+            <div className="mt-6 pt-4 border-t border-[rgba(100,120,255,0.08)] flex items-center gap-6 overflow-x-auto">
+              <a href="#overview" className="text-sm font-medium text-white pb-2 border-b-2 border-indigo-500 whitespace-nowrap">Global Overview</a>
+              <a href="#map" className="text-sm font-medium text-[rgba(200,210,255,0.5)] hover:text-white transition-colors pb-2 border-b-2 border-transparent whitespace-nowrap">Countries</a>
+              <a href="#trends" className="text-sm font-medium text-[rgba(200,210,255,0.5)] hover:text-white transition-colors pb-2 border-b-2 border-transparent whitespace-nowrap">Trends</a>
+              <a href="#compare" className="text-sm font-medium text-[rgba(200,210,255,0.5)] hover:text-white transition-colors pb-2 border-b-2 border-transparent whitespace-nowrap">Compare</a>
+              <a href="#sources" className="text-sm font-medium text-[rgba(200,210,255,0.5)] hover:text-white transition-colors pb-2 border-b-2 border-transparent whitespace-nowrap">Sources</a>
             </div>
           </div>
 
           {/* Key Metrics Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div id="overview" className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 pt-4 scroll-mt-24">
             {entity.globalMetrics.map((metric, i) => (
               <MetricCard
                 key={metric.id}
@@ -205,22 +220,38 @@ export default function EntityPage({ params }: { params: Promise<{ id: string }>
           </div>
 
           {/* Main Dashboard Grid */}
-          <div className="grid lg:grid-cols-3 gap-6 mb-6">
+          <div id="map" className="grid lg:grid-cols-3 gap-6 mb-6 pt-4 scroll-mt-24">
             {/* World Map - spans 2 cols */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 relative">
+              {mapMetricOptions.length > 0 && (
+                <div className="absolute top-6 left-6 z-10 glass-panel px-3 py-2 rounded-xl flex items-center gap-2">
+                  <span className="text-xs text-[rgba(200,210,255,0.5)]">METRIC:</span>
+                  <select 
+                    value={activeMapMetric}
+                    onChange={(e) => setSelectedMapMetric(e.target.value)}
+                    className="bg-transparent text-xs font-semibold text-white outline-none cursor-pointer"
+                  >
+                    {mapMetricOptions.map(opt => (
+                      <option key={opt} value={opt} className="bg-[#0a0a0f] text-white">
+                        {opt.charAt(0).toUpperCase() + opt.slice(1).replace(/([A-Z])/g, ' $1')}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <WorldMap
                 countryData={primaryMetric?.countryValues || []}
                 selectedCountries={selectedCountries}
                 onCountrySelect={handleCountrySelect}
                 onCountryDeselect={handleCountryDeselect}
                 onReset={handleReset}
-                primaryMetricKey={primaryMetricKey}
+                primaryMetricKey={activeMapMetric}
                 entityColor={entity.color}
               />
             </div>
 
             {/* Country Comparison */}
-            <div className="lg:col-span-1">
+            <div id="compare" className="lg:col-span-1 scroll-mt-24">
               <CountryComparison
                 countryData={primaryMetric?.countryValues || []}
                 selectedCountries={selectedCountries}
@@ -232,7 +263,7 @@ export default function EntityPage({ params }: { params: Promise<{ id: string }>
           </div>
 
           {/* Timeline */}
-          <div className="mb-6">
+          <div id="trends" className="mb-6 pt-4 scroll-mt-24">
             <Timeline
               availableYears={availableYears}
               selectedPeriod={selectedPeriod}
@@ -262,7 +293,7 @@ export default function EntityPage({ params }: { params: Promise<{ id: string }>
           </div>
 
           {/* Sources */}
-          <div className="glass-panel p-6">
+          <div id="sources" className="glass-panel p-6 scroll-mt-24">
             <div className="flex items-center gap-3 mb-4">
               <ExternalLink size={14} className="text-indigo-400" />
               <h3 className="text-sm font-medium uppercase tracking-wider text-[rgba(200,210,255,0.6)]">

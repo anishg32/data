@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DATAWAVE — Search the World. See the Data.",
+  title: "DATATO — Search the World. See the Data.",
   description:
     "Discover how apps, products, entertainment and technology are used around the world. Global data intelligence and discovery platform.",
   keywords: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "technology data",
   ],
   openGraph: {
-    title: "DATAWAVE — Global Data Intelligence",
+    title: "DATATO — Global Data Intelligence",
     description:
       "Discover how apps, products, entertainment and technology are used around the world.",
     type: "website",

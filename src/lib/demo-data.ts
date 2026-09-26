@@ -1,4 +1,4 @@
-// Demo data for DATAWAVE - Clearly labeled as DEMO DATA
+// Demo data for DATATO - Clearly labeled as DEMO DATA
 // These are illustrative values for development purposes only
 // Real data should come from verified public sources
 

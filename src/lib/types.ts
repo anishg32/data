@@ -1,4 +1,4 @@
-// Core types for DATAWAVE
+// Core types for DATATO
 
 export type DataType = 'REPORTED' | 'ESTIMATED' | 'CALCULATED' | 'UNAVAILABLE';
 
