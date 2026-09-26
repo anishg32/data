@@ -1,0 +1,409 @@
+@import "tailwindcss";
+
+/* ===== DATAWAVE Design System ===== */
+
+:root {
+  /* Core palette */
+  --dw-bg-primary: #050510;
+  --dw-bg-secondary: #0a0a1a;
+  --dw-bg-card: rgba(15, 15, 35, 0.7);
+  --dw-bg-glass: rgba(15, 15, 40, 0.5);
+  --dw-border: rgba(100, 120, 255, 0.08);
+  --dw-border-hover: rgba(100, 120, 255, 0.2);
+
+  /* Accent colors */
+  --dw-accent: #6366f1;
+  --dw-accent-light: #818cf8;
+  --dw-accent-glow: rgba(99, 102, 241, 0.3);
+  --dw-cyan: #22d3ee;
+  --dw-cyan-glow: rgba(34, 211, 238, 0.2);
+  --dw-emerald: #34d399;
+  --dw-rose: #f43f5e;
+  --dw-amber: #f59e0b;
+
+  /* Text */
+  --dw-text-primary: #e8eaf6;
+  --dw-text-secondary: rgba(200, 210, 255, 0.55);
+  --dw-text-muted: rgba(160, 170, 200, 0.4);
+
+  /* Typography */
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ===== Base Styles ===== */
+
+html {
+  scroll-behavior: smooth;
+  background: var(--dw-bg-primary);
+}
+
+body {
+  font-family: var(--font-display);
+  color: var(--dw-text-primary);
+  background: var(--dw-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--dw-accent);
+  color: white;
+}
+
+/* ===== Scrollbar ===== */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.25);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.4);
+}
+
+/* ===== Glass Panels ===== */
+
+.glass-panel {
+  background: var(--dw-bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--dw-border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: var(--dw-border-hover);
+}
+
+.glass-panel-solid {
+  background: var(--dw-bg-card);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--dw-border);
+  border-radius: 16px;
+}
+
+/* ===== Glow Effects ===== */
+
+.glow-accent {
+  box-shadow: 0 0 30px var(--dw-accent-glow), inset 0 0 30px rgba(99, 102, 241, 0.05);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 30px var(--dw-cyan-glow), inset 0 0 30px rgba(34, 211, 238, 0.05);
+}
+
+.text-glow {
+  text-shadow: 0 0 40px var(--dw-accent-glow);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 40px var(--dw-cyan-glow);
+}
+
+/* ===== Animated Gradient Text ===== */
+
+.gradient-text {
+  background: linear-gradient(135deg, #818cf8, #22d3ee, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-warm {
+  background: linear-gradient(135deg, #f43f5e, #f59e0b, #22d3ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Demo Badge ===== */
+
+.demo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dw-amber);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 4px;
+}
+
+/* ===== Data Type Badges ===== */
+
+.badge-reported {
+  color: var(--dw-emerald);
+  background: rgba(52, 211, 153, 0.1);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+.badge-estimated {
+  color: var(--dw-cyan);
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+}
+
+.badge-calculated {
+  color: var(--dw-accent-light);
+  background: rgba(129, 140, 248, 0.1);
+  border: 1px solid rgba(129, 140, 248, 0.2);
+}
+
+.badge-unavailable {
+  color: var(--dw-text-muted);
+  background: rgba(100, 100, 120, 0.1);
+  border: 1px solid rgba(100, 100, 120, 0.2);
+}
+
+/* ===== Animations ===== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes scan-line {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* ===== Search Input ===== */
+
+.search-input {
+  background: rgba(15, 15, 40, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--dw-border);
+  border-radius: 16px;
+  color: var(--dw-text-primary);
+  font-size: 18px;
+  padding: 20px 24px;
+  width: 100%;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: var(--dw-accent);
+  box-shadow: 0 0 0 3px var(--dw-accent-glow), 0 0 40px rgba(99, 102, 241, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--dw-text-muted);
+}
+
+/* ===== Map Styles ===== */
+
+.country-selectable {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.country-selectable:hover {
+  filter: brightness(1.5);
+}
+
+.country-selected {
+  filter: brightness(2) saturate(1.5);
+}
+
+/* ===== Metric Cards ===== */
+
+.metric-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dw-accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.metric-card:hover::before {
+  opacity: 1;
+}
+
+/* ===== Nav Link ===== */
+
+.nav-link {
+  position: relative;
+  color: var(--dw-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--dw-text-primary);
+}
+
+.nav-link.active {
+  color: var(--dw-accent-light);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--dw-accent);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ===== Page Background ===== */
+
+.page-gradient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99, 102, 241, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(34, 211, 238, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(129, 140, 248, 0.04) 0%, transparent 50%),
+    var(--dw-bg-primary);
+}
+
+/* ===== Grid Pattern ===== */
+
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ===== Count Up Animation ===== */
+
+.count-up {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== Responsive Utility ===== */
+
+@media (max-width: 768px) {
+  .search-input {
+    font-size: 16px;
+    padding: 16px 18px;
+    border-radius: 12px;
+  }
+  
+  .glass-panel {
+    border-radius: 12px;
+  }
+}
+
+/* ===== Chart Tooltip ===== */
+
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+.custom-tooltip {
+  background: rgba(10, 10, 30, 0.95) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--dw-border) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
